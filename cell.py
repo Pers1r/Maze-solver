@@ -14,6 +14,9 @@ class Cell:
         self.__y2 = -1
         self.__win = False
 
+    def get_position(self):
+        return Point(self.__x1, self.__y1), Point(self.__x2, self.__y2)
+
     def draw(self, x1, y1, x2, y2):
         self.__x1 = x1
         self.__x2 = x2
@@ -23,7 +26,7 @@ class Cell:
             point1 = Point(x1, y1)
             point2 = Point(x1, y2)
             self.window.draw_line(Line(point1, point2), color="black")
-        if self.has_top_wall:
+        if self.has_bottom_wall:
             point1 = Point(x1, y2)
             point2 = Point(x2, y2)
             self.window.draw_line(Line(point1, point2), color="black")
@@ -31,8 +34,17 @@ class Cell:
             point1 = Point(x2, y1)
             point2 = Point(x2, y2)
             self.window.draw_line(Line(point1, point2), color="black")
-        if self.has_bottom_wall:
+        if self.has_top_wall:
             point1 = Point(x1, y1)
             point2 = Point(x2, y1)
             self.window.draw_line(Line(point1, point2), color="black")
+
+    def draw_move(self, to_cell, undo=False):
+        color = "grey" if undo else "red"
+        pos = to_cell.get_position()
+        point1 = Point((self.__x1 + self.__x2) / 2, (self.__y1 + self.__y2) /2)
+        point2 = Point((pos[0].x + pos[1].x) / 2, (pos[0].y + pos[1].y) /2)
+        self.window.draw_line(Line(point1, point2), color=color)
+
+
 
