@@ -2,8 +2,7 @@ from geometry import *
 
 
 class Cell:
-    def __init__(self, window):
-        self.window = window
+    def __init__(self, window = None):
         self.has_left_wall = True
         self.has_right_wall = True
         self.has_top_wall = True
@@ -12,7 +11,7 @@ class Cell:
         self.__x2 = -1
         self.__y1 = -1
         self.__y2 = -1
-        self.__win = False
+        self.__win = window
 
     def get_position(self):
         return Point(self.__x1, self.__y1), Point(self.__x2, self.__y2)
@@ -22,22 +21,27 @@ class Cell:
         self.__x2 = x2
         self.__y1 = y1
         self.__y2 = y2
-        if self.has_left_wall:
-            point1 = Point(x1, y1)
-            point2 = Point(x1, y2)
-            self.window.draw_line(Line(point1, point2), color="black")
-        if self.has_bottom_wall:
-            point1 = Point(x1, y2)
-            point2 = Point(x2, y2)
-            self.window.draw_line(Line(point1, point2), color="black")
-        if self.has_right_wall:
-            point1 = Point(x2, y1)
-            point2 = Point(x2, y2)
-            self.window.draw_line(Line(point1, point2), color="black")
-        if self.has_top_wall:
-            point1 = Point(x1, y1)
-            point2 = Point(x2, y1)
-            self.window.draw_line(Line(point1, point2), color="black")
+        lines = []
+
+        point1 = Point(x1, y1)
+        point2 = Point(x1, y2)
+        lines.append({"line": Line (point1, point2), "color": "black" if self.has_left_wall else "white"})
+
+
+        point1 = Point(x1, y2)
+        point2 = Point(x2, y2)
+        lines.append({"line": Line (point1, point2), "color": "black" if self.has_bottom_wall else "white"})
+
+        point1 = Point(x2, y1)
+        point2 = Point(x2, y2)
+        lines.append({"line": Line (point1, point2), "color": "black" if self.has_right_wall else "white"})
+
+        point1 = Point(x1, y1)
+        point2 = Point(x2, y1)
+        lines.append({"line": Line (point1, point2), "color": "black" if self.has_top_wall else "white"})
+        if self.__win is not None:
+            for x in lines:
+                self.__win.draw_line(x['line'], color=x['color'])
 
     def draw_move(self, to_cell, undo=False):
         color = "grey" if undo else "red"

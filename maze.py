@@ -3,7 +3,7 @@ import time
 
 
 class Maze:
-    def __init__(self, x1, y1, num_rows, num_cols, cell_size_x, cell_size_y, win):
+    def __init__(self, x1, y1, num_rows, num_cols, cell_size_x, cell_size_y, win = None):
         self.x1 = x1
         self.y1 = y1
         self.num_rows = num_rows
@@ -28,7 +28,8 @@ class Maze:
         self.__cells[row][col].draw(x1, y1, x2, y2)
         self.__animate()
 
-    def __animate(self):
-        self.win.redraw()
-        time.sleep(0.05)
+    def __animate(self, delay=0.01):
+        if self.win:
+            self.win.redraw()
+            time.sleep(delay)
 
