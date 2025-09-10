@@ -25,20 +25,20 @@ class Cell:
 
         point1 = Point(x1, y1)
         point2 = Point(x1, y2)
-        lines.append({"line": Line (point1, point2), "color": "black" if self.has_left_wall else "white"})
+        lines.append({"line": Line (point1, point2), "color": "black" if self.has_left_wall else "#d9d9d9"})
 
 
         point1 = Point(x1, y2)
         point2 = Point(x2, y2)
-        lines.append({"line": Line (point1, point2), "color": "black" if self.has_bottom_wall else "white"})
+        lines.append({"line": Line (point1, point2), "color": "black" if self.has_bottom_wall else "#d9d9d9"})
 
         point1 = Point(x2, y1)
         point2 = Point(x2, y2)
-        lines.append({"line": Line (point1, point2), "color": "black" if self.has_right_wall else "white"})
+        lines.append({"line": Line (point1, point2), "color": "black" if self.has_right_wall else "#d9d9d9"})
 
         point1 = Point(x1, y1)
         point2 = Point(x2, y1)
-        lines.append({"line": Line (point1, point2), "color": "black" if self.has_top_wall else "white"})
+        lines.append({"line": Line (point1, point2), "color": "black" if self.has_top_wall else "#d9d9d9"})
         if self.__win is not None:
             for x in lines:
                 self.__win.draw_line(x['line'], color=x['color'])
